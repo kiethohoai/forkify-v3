@@ -4,3 +4,4 @@
 #8 The MVC Architecture
 #9 Refactoring for MVC
 #10 Helpers and Configuration Files
+#11 Event Handlers in MVC Publisher-Subscriber Pattern
