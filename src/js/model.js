@@ -4,6 +4,10 @@ import { getJSON } from './helpers.js';
 // TODO: STATE
 export const state = {
   recipe: {},
+  search: {
+    query: '',
+    results: [],
+  },
 };
 
 // TODO: loadRecipe
@@ -26,6 +30,28 @@ export const loadRecipe = async function (id) {
     };
     // console.log(`🚀CHECK > state.recipe:`, state.recipe);
   } catch (error) {
+    throw error;
+  }
+};
+
+// TODO: loadSearchResults
+export const loadSearchResults = async function (query) {
+  try {
+    // Fetch data via "query"
+    const data = await getJSON(`${API_URL}?search=${query}`);
+
+    // Save to local "state"
+    state.search.query = query;
+    state.search.results = data.data.recipes.map((recipe) => {
+      return {
+        id: recipe.id,
+        title: recipe.title,
+        publisher: recipe.publisher,
+        image: recipe.image_url,
+      };
+    });
+  } catch (error) {
+    console.error(`🚀CHECK > error (loadSearchResults):`, error);
     throw error;
   }
 };
