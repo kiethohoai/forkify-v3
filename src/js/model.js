@@ -26,6 +26,6 @@ export const loadRecipe = async function (id) {
     };
     // console.log(`🚀CHECK > state.recipe:`, state.recipe);
   } catch (error) {
-    console.error(`🚀CHECK > error (loadRecipe):`, error);
+    throw error;
   }
 };
