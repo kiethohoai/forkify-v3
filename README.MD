@@ -3,3 +3,4 @@
 #7 Listening For load and hashchange Events
 #8 The MVC Architecture
 #9 Refactoring for MVC
+#10 Helpers and Configuration Files
