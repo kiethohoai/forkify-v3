@@ -27,11 +27,16 @@ const renderSpinner = function (parentEl) {
 // TODO: showRecipe
 const showRecipe = async function () {
   try {
+    // Get id from the hash changed
+    const id = window.location.hash.slice(1);
+    if (!id) return;
+    console.log(`🚀CHECK > id:`, id);
+
     // Loading spinner before data arrived
     renderSpinner(recipeContainer);
 
     // Fetch & Get Data from API
-    const res = await fetch(`${API_URL}/664c8f193e7aa067e94e8706`);
+    const res = await fetch(`${API_URL}/${id}`);
     const data = await res.json();
     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
 
@@ -47,7 +52,7 @@ const showRecipe = async function () {
       cookingTime: recipe.cooking_time,
       ingredients: recipe.ingredients,
     };
-    console.log(`🚀CHECK > recipe:`, recipe);
+    // console.log(`🚀CHECK > recipe:`, recipe);
 
     // Render Recipe Data
     const markup = `
@@ -150,4 +155,6 @@ const showRecipe = async function () {
     console.log(`🚀CHECK > error:`, error);
   }
 };
-showRecipe();
+
+// TODO: Event listener
+['hashchange', 'load'].forEach((ev) => window.addEventListener(ev, showRecipe));
