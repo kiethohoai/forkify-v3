@@ -11,6 +11,16 @@ class RecipeView extends View {
     ['hashchange', 'load'].forEach((ev) => window.addEventListener(ev, handler));
   }
 
+  addHandlerUpdateServings(handler) {
+    this._parentElement.addEventListener('click', function (e) {
+      const btn = e.target.closest('.btn--update-servings');
+      if (!btn) return;
+
+      const updateTo = +btn.dataset.updateTo;
+      handler(updateTo);
+    });
+  }
+
   _generateMarkup() {
     return `
         <figure class="recipe__fig">
@@ -34,18 +44,20 @@ class RecipeView extends View {
             <svg class="recipe__info-icon">
               <use href="src/img/icons.svg#icon-users"></use>
             </svg>
-            <span class="recipe__info-data recipe__info-data--people">${
-              this._data.servings
-            }</span>
+            <span class="recipe__info-data recipe__info-data--people">${this._data.servings}</span>
             <span class="recipe__info-text">servings</span>
 
             <div class="recipe__info-buttons">
-              <button class="btn--tiny btn--increase-servings">
+              <button data-update-to="${
+                this._data.servings - 1
+              }" class="btn--tiny btn--update-servings">
                 <svg>
                   <use href="src/img/icons.svg#icon-minus-circle"></use>
                 </svg>
               </button>
-              <button class="btn--tiny btn--increase-servings">
+              <button data-update-to="${
+                this._data.servings + 1
+              }" class="btn--tiny btn--update-servings">
                 <svg>
                   <use href="src/img/icons.svg#icon-plus-circle"></use>
                 </svg>
@@ -68,9 +80,7 @@ class RecipeView extends View {
         <div class="recipe__ingredients">
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
-            ${this._data.ingredients
-              .map((ing) => this._generateMarkupIngredient(ing))
-              .join('')} 
+            ${this._data.ingredients.map((ing) => this._generateMarkupIngredient(ing)).join('')} 
           </ul>
         </div>
 
@@ -78,9 +88,7 @@ class RecipeView extends View {
           <h2 class="heading--2">How to cook it</h2>
           <p class="recipe__directions-text">
             This recipe was carefully designed and tested by
-            <span class="recipe__publisher">${
-              this._data.publisher
-            }</span>. Please check out
+            <span class="recipe__publisher">${this._data.publisher}</span>. Please check out
             directions at their website.
           </p>
           <a
