@@ -25,10 +25,7 @@ const controlRecipe = async function () {
     // Render Recipe Data
     recipeView.render(model.state.recipe);
   } catch (error) {
-    console.error(
-      `🚀CHECK > error (controlRecipe):`,
-      error,
-    );
+    console.error(`🚀CHECK > error (controlRecipe):`, error);
     recipeView.renderError();
   }
 };
@@ -98,8 +95,14 @@ const controlAddBookmark = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+//TODO controlBookmarks
+const controlBookmarks = function () {
+  bookmarksView.render(model.state.bookmarks);
+};
+
 // TODO: init()
 const init = (function () {
+  bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipe);
   recipeView.addHandlerUpdateServings(controlServings);
   recipeView.addHandlerAddBookmark(controlAddBookmark);
