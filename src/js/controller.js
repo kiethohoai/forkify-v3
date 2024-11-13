@@ -4,6 +4,7 @@ import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
+import addRecipeView from './views/addRecipeView.js';
 
 // TODO: controlRecipe
 const controlRecipe = async function () {
@@ -100,6 +101,10 @@ const controlBookmarks = function () {
   bookmarksView.render(model.state.bookmarks);
 };
 
+const controlAddRecipe = function (recipe) {
+  console.log(`🚀CHECK > recipe:`, recipe);
+};
+
 // TODO: init()
 const init = (function () {
   bookmarksView.addHandlerRender(controlBookmarks);
@@ -108,4 +113,7 @@ const init = (function () {
   recipeView.addHandlerAddBookmark(controlAddBookmark);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
+
+  //FIX
+  addRecipeView._addHandlerUpload(controlAddRecipe);
 })();

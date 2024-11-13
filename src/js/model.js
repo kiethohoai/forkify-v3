@@ -102,8 +102,6 @@ export const addBookmark = function (recipe) {
 
 /* deleteBookmark */
 export const deleteBookmark = function (id) {
-  console.log(`deleteBookmark func`);
-
   const index = state.bookmarks.findIndex((el) => el.id === id);
   if (index >= 0) state.bookmarks.splice(index, 1);
 
@@ -115,12 +113,10 @@ export const deleteBookmark = function (id) {
 };
 
 /* init */
-const init = function () {
+const init = (function () {
   const storage = localStorage.getItem('bookmarks');
   if (storage) state.bookmarks = JSON.parse(storage);
-  console.log(`🚀CHECK > state.bookmarks:`, state.bookmarks);
-};
-init();
+})();
 
 const clearBookmarks = function () {
   localStorage.clear('bookmarks');
